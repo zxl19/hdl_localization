@@ -18,6 +18,7 @@
 #include <pluginlib/class_list_macros.h>
 
 #include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/approximate_voxel_grid.h>
 
 #include <pclomp/ndt_omp.h>
 
@@ -67,7 +68,8 @@ private:
     std::string ndt_neighbor_search_method = private_nh.param<std::string>("ndt_neighbor_search_method", "DIRECT7");
 
     double ndt_resolution = private_nh.param<double>("ndt_resolution", 1.0);
-    boost::shared_ptr<pcl::VoxelGrid<PointT>> voxelgrid(new pcl::VoxelGrid<PointT>());
+    // boost::shared_ptr<pcl::VoxelGrid<PointT>> voxelgrid(new pcl::VoxelGrid<PointT>()); // Original
+    boost::shared_ptr<pcl::ApproximateVoxelGrid<PointT>> voxelgrid(new pcl::ApproximateVoxelGrid<PointT>());
     voxelgrid->setLeafSize(downsample_resolution, downsample_resolution, downsample_resolution);
     downsample_filter = voxelgrid;
 
